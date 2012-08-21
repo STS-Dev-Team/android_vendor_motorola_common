@@ -1,5 +1,4 @@
 /*************************************************************************/ /*!
-@File
 @Title          Version numbers and strings.
 @Copyright      Copyright (c) Imagination Technologies Ltd. All Rights Reserved
 @Description    Version numbers and strings for PVR Consumer services
@@ -40,6 +39,7 @@ PURPOSE AND NONINFRINGEMENT; AND (B) IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  
 */ /**************************************************************************/
 
 #ifndef _PVRVERSION_H_
@@ -54,7 +54,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define PVRVERSION_FAMILY           "sgxddk"
 #define PVRVERSION_BRANCHNAME       "1.9"
-#define PVRVERSION_BUILD             2120756
+#define PVRVERSION_BUILD             956766
 #define PVRVERSION_BSCONTROL        "SGX_DDK_Android"
 
 #define PVRVERSION_STRING           "SGX_DDK_Android sgxddk 19 1.9@" PVR_STR2(PVRVERSION_BUILD)
@@ -62,8 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define COPYRIGHT_TXT               "Copyright (c) Imagination Technologies Ltd. All Rights Reserved."
 
-#define PVRVERSION_BUILD_HI          212
-#define PVRVERSION_BUILD_LO          756
+#define PVRVERSION_BUILD_HI          95
+#define PVRVERSION_BUILD_LO          6766
 #define PVRVERSION_STRING_NUMERIC    PVR_STR2(PVRVERSION_MAJ) "." PVR_STR2(PVRVERSION_MIN) "." PVR_STR2(PVRVERSION_BUILD_HI) "." PVR_STR2(PVRVERSION_BUILD_LO)
 
 #endif /* _PVRVERSION_H_ */
