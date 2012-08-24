@@ -43,6 +43,4 @@ SUPPORT_SGX_HWPERF := 1
 PVRSRV_NEED_PVR_DPF := 1
 PVRSRV_NEED_PVR_TRACE := 1
 PVRSRV_NEED_PVR_ASSERT := 1
-# Go back to the old compiler for tuna kernel modules
-KERNEL_CROSS_COMPILE := arm-eabi-
 endif
