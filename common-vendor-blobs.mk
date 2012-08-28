@@ -14,12 +14,6 @@
 
 VENDOR_FOLDER := vendor/motorola/common
 
-# Backup Tool
-PRODUCT_COPY_FILES += \
-    $(VENDOR_FOLDER)/prebuilt/bin/backuptool.sh:system/bin/backuptool.sh \
-    $(VENDOR_FOLDER)/prebuilt/bin/backuptool.functions:system/bin/backuptool.functions \
-    $(VENDOR_FOLDER)/prebuilt/bin/50-backup.sh:system/addon.d/50-backup.sh
-
 # WirelessTether
 PRODUCT_PACKAGES += wifi_tether_v3_2-beta1
 PRODUCT_COPY_FILES += \
