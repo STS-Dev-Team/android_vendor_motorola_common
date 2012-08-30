@@ -82,6 +82,9 @@ rm $REPACK/ota/system/app/FmService.apk
 rm $REPACK/ota/system/app/FmTxApp.apk
 rm $REPACK/ota/system/app/RomManager.apk
 
+# Removing camera.omap4.so for now until we get a fix (causes hang on some devices)
+mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
+
 # Fix build.prop
 $SED -i \
 	-e '/ro\.kernel\.android\.checkjni/d' \
