@@ -18,5 +18,4 @@ $(call inherit, vendor/motorola/common/proprietary/apps/Android.mk)
 
 PRODUCT_PACKAGES += \
 	appdirectedsmspermission \
-	com.motorola.android.server.ims \
 	vzwapnpermission
