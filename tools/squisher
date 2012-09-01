@@ -80,7 +80,7 @@ rm -rf $REPACK/parallel
 rm $REPACK/ota/system/app/FmRxApp.apk
 rm $REPACK/ota/system/app/FmService.apk
 rm $REPACK/ota/system/app/FmTxApp.apk
-rm $REPACK/ota/system/app/RomManager.apk
+rm $REPACK/ota/system/app/RomManager.apk 2> /dev/null
 
 # Fix build.prop
 $SED -i \
