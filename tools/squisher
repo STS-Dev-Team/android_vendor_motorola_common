@@ -120,7 +120,7 @@ VERSION=`cat "vendor/aokp/configs/common_versions.mk" | grep ro.aokp.version | h
 MODVERSION="$TARGET_PRODUCT"_"$VERSION"
 OUTFILE=$OUT/KEXEC-$MODVERSION-$REALDATE.zip
 else
-OUTFILE=$OUT/$TARGET_PRODUCT-JB-$REALDATE.zip
+OUTFILE=$OUT/KEXEC-$TARGET_PRODUCT-JB-$REALDATE.zip
 fi
 
 # Pack it up and sign
