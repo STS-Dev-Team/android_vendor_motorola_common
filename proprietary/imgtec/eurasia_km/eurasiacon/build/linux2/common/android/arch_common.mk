@@ -38,23 +38,22 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ### ###########################################################################
 
-.PHONY: prepare_tree
+SYS_CFLAGS := \
+ -fno-short-enums -D__linux__ \
+ -I$(ANDROID_ROOT)/bionic/libc/arch-$(ANDROID_ARCH)/include \
+ -I$(ANDROID_ROOT)/bionic/libc/include \
+ -I$(ANDROID_ROOT)/bionic/libc/kernel/common \
+ -I$(ANDROID_ROOT)/bionic/libc/kernel/arch-$(ANDROID_ARCH) \
+ -I$(ANDROID_ROOT)/bionic/libm/include \
+ -I$(ANDROID_ROOT)/bionic/libm/include/$(ANDROID_ARCH) \
+ -I$(ANDROID_ROOT)/bionic/libthread_db/include \
+ -I$(ANDROID_ROOT)/frameworks/base/include \
+ -isystem $(ANDROID_ROOT)/system/core/include \
+ -I$(ANDROID_ROOT)/hardware/libhardware/include \
+ -I$(ANDROID_ROOT)/external/openssl/include
 
--include eurasiacon/build/linux2/kbuild/external_tarball.mk
+SYS_EXE_LDFLAGS := \
+ -Bdynamic -nostdlib -Wl,-dynamic-linker,/system/bin/linker \
+ -lc -ldl -lcutils
 
-# If there's no external tarball, there's nothing to do
-#
-prepare_tree:
-
-INTERNAL_INCLUDED_PREPARE_HEADERS :=
--include eurasiacon/build/linux2/prepare_headers.mk
-ifneq ($(INTERNAL_INCLUDED_PREPARE_HEADERS),true)
-missing_headers := $(strip $(shell test ! -e include4/pvrversion.h && echo true))
-ifdef missing_headers
-$(info )
-$(info ** include4/pvrversion.h is missing, and cannot be rebuilt.)
-$(info ** Cannot continue.)
-$(info )
-$(error Missing headers)
-endif
-endif
+SYS_LIB_LDFLAGS := $(SYS_EXE_LDFLAGS)
