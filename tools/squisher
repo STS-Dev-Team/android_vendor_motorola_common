@@ -98,9 +98,6 @@ rm -rf $REPACK/ota/recovery
 # Strip modules
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
-if [ "$TARGET_PRODUCT" = "full_$TARGET_BOOTLOADER_BOARD_NAME" ]; then
-cp -f $ANDROID_BUILD_TOP/vendor/motorola/common/prebuilt/bin/su $REPACK/ota/system/xbin/su
-fi
 
 # move gralloc to where it will be recognized
 cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
