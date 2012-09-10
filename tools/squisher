@@ -80,10 +80,12 @@ rm -rf $REPACK/parallel
 rm $REPACK/ota/system/app/FmRxApp.apk
 rm $REPACK/ota/system/app/FmService.apk
 rm $REPACK/ota/system/app/FmTxApp.apk
-rm $REPACK/ota/system/app/RomManager.apk
+rm $REPACK/ota/system/app/RomManager.apk 2> /dev/null
 
 # Removing camera.omap4.so for now until we get a fix (causes hang on some devices)
+if [ -f $OUT/system/etc/kexec/kexec ]; then
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
+fi
 
 # Fix build.prop
 $SED -i \
@@ -103,9 +105,26 @@ rm -rf $REPACK/ota/recovery
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # Determine what to name the new signed package
+REALDATE=`date -u +%Y%m%d`
+if [ -f $OUT/system/etc/kexec/kexec ]; then
+PREFIX=KEXEC
+else
+PREFIX=STOCK
+fi
+
+if [ -f $ANDROID_BUILD_TOP/vendor/cm/LICENSE ];
+then
 MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $REPACK/ota/system/build.prop`
-OUTFILE=$OUT/KEXEC-cm-$MODVERSION.zip
+OUTFILE=$OUT/$PREFIX-cm-$MODVERSION.zip
 echo MODVERSION: $MODVERSION
+elif [ -f $ANDROID_BUILD_TOP/vendor/aokp/vendorsetup.sh ];
+then
+VERSION=`cat "vendor/aokp/configs/common_versions.mk" | grep ro.aokp.version | head -1 | cut -f2 -d '=' | cut -f3 -d '_'`
+MODVERSION="$TARGET_PRODUCT"_"$VERSION"
+OUTFILE=$OUT/$PREFIX-$MODVERSION-$REALDATE.zip
+else
+OUTFILE=$OUT/$PREFIX-$TARGET_PRODUCT-ICS-$REALDATE.zip
+fi
 
 # Pack it up and sign
 printf "Zipping package..."
