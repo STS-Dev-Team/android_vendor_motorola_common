@@ -1,3 +1,5 @@
+ifeq ($(BOARD_USES_KEXEC),true)
+
 ifeq ($(findstring omap, $(TARGET_BOARD_PLATFORM)),omap)
 # HWC under heavy development and should not be included in builds for now
 LOCAL_PATH := $(call my-dir)
@@ -21,4 +23,6 @@ LOCAL_C_INCLUDES += external/libpng external/zlib
 # LOG_NDEBUG=0 means verbose logging enabled
 # LOCAL_CFLAGS += -DLOG_NDEBUG=0
 include $(BUILD_SHARED_LIBRARY)
+endif
+
 endif
