@@ -1,3 +1,5 @@
+ifeq ($(BOARD_USES_KEXEC),true)
+
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -24,3 +26,5 @@ LOCAL_MODULE:= parse_hdmi_edid
 LOCAL_MODULE_TAGS:= optional
 
 include $(BUILD_EXECUTABLE)
+
+endif
