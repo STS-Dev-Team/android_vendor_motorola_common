@@ -99,10 +99,15 @@ rm -rf $REPACK/ota/recovery
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
-# move gralloc to where it will be recognized and camera out of the way for now
+# move gralloc to where it will be recognized and camera out of the way for now in kexec builds
 if [ -f $OUT/system/etc/kexec/kexec ]; then
 cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
+fi
+
+#remove hwcomposer.omap4 in stock for now
+if [ -f $OUT/system/etc/rootfs/init ]; then
+mv $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so $REPACK/ota/system/lib/hw/hwcomposer.omap4.so.bak
 fi
 
 # Determine what to name the new signed package
