@@ -54,6 +54,8 @@ public class ShowSimStatusActivity  extends Service {
     static final int EF_HPLMNACT_ID = 0x6f62;
     static final int COMMAND_READ_BINARY = 0xb0;
 
+    static final int DEFAULT_DELAY = 10000;
+
     private PhoneProxy mPhone = null;
     private CommandsInterface mCM = null;
     private Context mContext = null;
@@ -120,7 +122,7 @@ public class ShowSimStatusActivity  extends Service {
                     }
                 }
                 else {
-                    Log.d(TAG, "[SHOWSIMSTATUS] ERROR: Unkown SIM operator");
+                    Log.d(TAG, "[SHOWSIMSTATUS] ERROR: Unkown SIM operator (" + simOperator + ")");
                     i = 1;
                 }
         }
@@ -129,6 +131,16 @@ public class ShowSimStatusActivity  extends Service {
         
         return i;
     }
+
+    private Runnable delayCheckSimStatus = new Runnable() {
+        @Override
+        public void run() {
+            int i = -1;
+            if (DBG) Log.d(TAG, "[SHOWSIMSTATUS] ----- ACTION SIM_STATE_CHANGED START");
+            i = checkSimStatus();
+            if (DBG) Log.d(TAG, "[SHOWSIMSTATUS] ----- ACTION SIM_STATE_CHANGED [CheckSimStatus == " + i + "]");
+        }
+    };
 
     public IBinder onBind(Intent paramIntent) {
         return null;
@@ -187,9 +199,7 @@ public class ShowSimStatusActivity  extends Service {
                 if (iccState != null) {
                     if (DBG) Log.d(TAG, "[SHOWSIMSTATUS] ----- ACTION SIM_STATE_CHANGED [iccCardState = " + iccState.toString() + "]");
                     if (!mSimLoaded && iccState.equals("LOADED")) {
-                        if (DBG) Log.d(TAG, "[SHOWSIMSTATUS] ----- ACTION SIM_STATE_CHANGED START");
-                        i = checkSimStatus();
-                        if (DBG) Log.d(TAG, "[SHOWSIMSTATUS] ----- ACTION SIM_STATE_CHANGED [CheckSimStatus == " + i + "]");
+	                mHandler.postDelayed(delayCheckSimStatus, DEFAULT_DELAY);
                     }
                 }
             }
