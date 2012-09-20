@@ -15,6 +15,6 @@
 VENDOR_FOLDER := vendor/motorola/common
 
 # WirelessTether
-PRODUCT_PACKAGES += wifi_tether_v3_2-beta1
+PRODUCT_PACKAGES += wifi_tether_v3_2-beta2
 PRODUCT_COPY_FILES += \
     $(VENDOR_FOLDER)/prebuilt/lib/libwtnativetask.so:system/lib/libwtnativetask.so \
