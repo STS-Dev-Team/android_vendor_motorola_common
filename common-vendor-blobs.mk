@@ -21,6 +21,6 @@ PRODUCT_COPY_FILES += \
     $(VENDOR_FOLDER)/prebuilt/bin/50-backup.sh:system/addon.d/50-backup.sh
 
 # WirelessTether
-PRODUCT_PACKAGES += wifi_tether_v3_2-beta1
+PRODUCT_PACKAGES += wifi_tether_v3_2-beta2
 PRODUCT_COPY_FILES += \
     $(VENDOR_FOLDER)/prebuilt/lib/libwtnativetask.so:system/lib/libwtnativetask.so \
