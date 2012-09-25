@@ -14,7 +14,7 @@
 
 LOCAL_PATH:=\$(call my-dir)
 
-include \$(CLEAR_VARS)
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := wifi_tether_v3_2-beta2
 LOCAL_SRC_FILES := \$(LOCAL_MODULE).apk
@@ -22,4 +22,4 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-include \$(BUILD_PREBUILT)
+include $(BUILD_PREBUILT)

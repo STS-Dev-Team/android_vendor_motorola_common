@@ -14,7 +14,7 @@
 
 LOCAL_PATH:=\$(call my-dir)
 
-include \$(CLEAR_VARS)
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := appdirectedsmspermission
 LOCAL_SRC_FILES := \$(LOCAL_MODULE).apk
@@ -22,9 +22,9 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-include \$(BUILD_PREBUILT)
+include $(BUILD_PREBUILT)
 
-include \$(CLEAR_VARS)
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := com.motorola.android.server.ims
 LOCAL_SRC_FILES := \$(LOCAL_MODULE).apk
@@ -32,9 +32,9 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-include \$(BUILD_PREBUILT)
+include $(BUILD_PREBUILT)
 
-include \$(CLEAR_VARS)
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := vzwapnpermission
 LOCAL_SRC_FILES := \$(LOCAL_MODULE).apk
@@ -42,4 +42,4 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-include \$(BUILD_PREBUILT)
+include $(BUILD_PREBUILT)
