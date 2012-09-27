@@ -71,7 +71,7 @@
   <apn carrier="Verizon CBS" mcc="310" mnc="004" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" />
 
   <!-- Modify Apn database for VZW LTE support -->
-  <apn carrier="LTE - Verizon Internet" mcc="311" mnc="480" apn="VZWINTERNET" type="default,dun" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
+  <apn carrier="LTE - Verizon Internet" mcc="311" mnc="480" apn="VZWINTERNET" type="default,mms,dun" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - Verizon FOTA" mcc="311" mnc="480" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - Verizon IMS" mcc="311" mnc="480" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - Verizon CBS" mcc="311" mnc="480" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
@@ -88,7 +88,7 @@
   <apn carrier="LTE - VZW Test FOTA" mcc="001" mnc="010" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14"  />
   <apn carrier="LTE - VZW Test IMS" mcc="001" mnc="010" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - VZW Test CBS" mcc="001" mnc="010" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
-  <apn carrier="LTE - VZW Test Internet" mcc="246" mnc="81" apn="VZWINTERNET" type="default,dun" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
+  <apn carrier="LTE - VZW Test Internet" mcc="246" mnc="81" apn="VZWINTERNET" type="default,mms,dun" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - VZW Test FOTA" mcc="246" mnc="81" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - VZW Test IMS" mcc="246" mnc="81" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
   <apn carrier="LTE - VZW Test CBS" mcc="246" mnc="81" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="14" />
@@ -99,7 +99,7 @@
   <!-- END modify Apn database for VZW LTE support -->
 
   <!-- Modify Apn database for VZW EHRPD support -->
-  <apn carrier="EHRPD - Verizon Internet" mcc="311" mnc="480" apn="VZWINTERNET" type="default,dun" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13"  />
+  <apn carrier="EHRPD - Verizon Internet" mcc="311" mnc="480" apn="VZWINTERNET" type="default,mms,dun" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13"  />
   <apn carrier="EHRPD - Verizon FOTA"  mcc="311" mnc="480" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - Verizon IMS" mcc="311" mnc="480" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - Verizon CBS" mcc="311" mnc="480" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
@@ -116,11 +116,11 @@
   <apn carrier="EHRPD - VZW Test FOTA" mcc="001" mnc="010" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test IMS" mcc="001" mnc="010" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test CBS" mcc="001" mnc="010" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
-  <apn carrier="EHRPD - VZW Test Internet" mcc="246" mnc="81" apn="VZWINTERNET" type="default,dun" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
+  <apn carrier="EHRPD - VZW Test Internet" mcc="246" mnc="81" apn="VZWINTERNET" type="default,mms,dun" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test FOTA" mcc="246" mnc="81" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test IMS" mcc="246" mnc="81" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test CBS" mcc="246" mnc="81" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
-  <apn carrier="EHRPD - VZW Test Internet" mcc="246" mnc="081" apn="VZWINTERNET" type="default,dun" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
+  <apn carrier="EHRPD - VZW Test Internet" mcc="246" mnc="081" apn="VZWINTERNET" type="default,mms,dun" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test FOTA" mcc="246" mnc="081" apn="VZWADMIN" type="fota" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test IMS" mcc="246" mnc="081" apn="VZWIMS" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
   <apn carrier="EHRPD - VZW Test CBS" mcc="246" mnc="081" apn="VZWAPP" type="cbs,mms" mmsc="http://mms.vtext.com/servlets/mms" mmsport="80" protocol="IPV4V6" roaming_protocol="IPV4V6" bearer="13" />
