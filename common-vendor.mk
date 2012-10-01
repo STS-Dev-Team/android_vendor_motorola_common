@@ -33,4 +33,30 @@ PRODUCT_PACKAGES := \
 PRODUCT_COPY_FILES := \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
+ifeq ($(BOARD_USES_KEXEC),true)
+    TYPE := KEXEC
+else
+    TYPE := STOCK
+endif
+OTATIME := $(shell date +%Y%m%d-%H%M)
+UTC := $(shell date -u +%Y%m%d)
+FLAVOR := $(shell echo $(TARGET_PRODUCT) | cut -f1 -d '_')
+DEVICE := $(shell echo $(TARGET_PRODUCT) | cut -f2 -d '_')
+PRODUCT_PROPERTY_OVERRIDES += \
+    otaupdater.otatime=$(OTATIME) \
+    otaupdater.sdcard.os=sdcard-ext \
+    otaupdater.sdcard.recovery=sdcard \
+    otaupdater.noflash=1 \
+    otaupdater.otaid=$(TYPE)-JB-$(TARGET_PRODUCT)
+ifeq ($(FLAVOR),cm)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-cm-10-$(UTC)-UNOFFICIAL-$(DEVICE)
+endif
+ifeq ($(FLAVOR),aokp)
+    DATE = $(shell vendor/aokp/tools/getdate)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-JB-$(TARGET_PRODUCT)_unofficial_$(DATE)
+endif
+ifeq ($(FLAVOR),full)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-JB-$(TARGET_PRODUCT)-$(UTC)
+endif
+
 $(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
