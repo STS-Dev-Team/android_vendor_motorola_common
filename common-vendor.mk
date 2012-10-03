@@ -51,7 +51,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ifeq ($(FLAVOR),cm)
     PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-cm-10-$(UTC)-UNOFFICIAL-$(DEVICE)
 endif
-ifeq ($(FLAVOR),aokp)
+ifeq ($(FLAVOROMXNodeInstance),aokp)
     DATE = $(shell vendor/aokp/tools/getdate)
     PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-JB-$(TARGET_PRODUCT)_unofficial_$(DATE)
 endif
@@ -60,3 +60,4 @@ ifeq ($(FLAVOR),full)
 endif
 
 $(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
+$(call inherit-product, vendor/motorola/common/common_drm_phone.mk)
