@@ -61,3 +61,4 @@ endif
 
 $(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
 $(call inherit-product, vendor/motorola/common/common_drm_phone.mk)
+$(call inherit-product, vendor/motorola/common/prebuilt/apps/otaupdater.mk)
