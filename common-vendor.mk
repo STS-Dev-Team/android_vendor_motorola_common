@@ -49,14 +49,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     otaupdater.noflash=1 \
     otaupdater.otaid=$(TYPE)-JB-$(TARGET_PRODUCT)
 ifeq ($(FLAVOR),cm)
-    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-cm-10-$(UTC)-UNOFFICIAL-$(DEVICE)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(UTC)-UNOFFICIAL-$(DEVICE)
 endif
-ifeq ($(FLAVOROMXNodeInstance),aokp)
+ifeq ($(FLAVOR),aokp)
     DATE = $(shell vendor/aokp/tools/getdate)
-    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-JB-$(TARGET_PRODUCT)_unofficial_$(DATE)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(DATE)
 endif
 ifeq ($(FLAVOR),full)
-    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(TYPE)-JB-$(TARGET_PRODUCT)-$(UTC)
+    PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(UTC)
 endif
 
 $(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
