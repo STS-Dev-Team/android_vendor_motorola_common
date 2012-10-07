@@ -6,6 +6,7 @@
 export C=/tmp/backupdir
 export S=/system
 export V=4.1.1
+export A=4.0.9.99.999.9999.99999
 
 # Preserve /system/addon.d in /tmp/addon.d
 preserve_addon_d() {
@@ -22,7 +23,7 @@ restore_addon_d() {
 
 # Proceed only if /system is JB
 check_prereq() {
-if ( ! grep -q "^ro.build.version.release=$V" /system/build.prop ); then
+if [ ! grep -q "^ro.build.version.release=$V" /system/build.prop ] || [ ! grep -q "^ro.build.version.release=$A" /system/build.prop ]; then
   echo "Not backing up files from incompatible version."
   exit 127
 fi
