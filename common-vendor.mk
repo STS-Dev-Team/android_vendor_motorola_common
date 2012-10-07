@@ -28,6 +28,7 @@ PRODUCT_PACKAGES := \
     LiveWallpapersPicker \
     VisualizationWallpapers \
     PhaseBeam \
+    OTAUpdateCenter
 
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES := \
@@ -61,4 +62,3 @@ endif
 
 $(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
 $(call inherit-product, vendor/motorola/common/common_drm_phone.mk)
-$(call inherit-product, vendor/motorola/common/prebuilt/apps/otaupdater.mk)
