@@ -46,7 +46,7 @@ DEVICE := $(shell echo $(TARGET_PRODUCT) | cut -f2 -d '_')
 PRODUCT_PROPERTY_OVERRIDES += \
     otaupdater.otatime=$(OTATIME) \
     otaupdater.sdcard.os=sdcard-ext \
-    otaupdater.sdcard.recovery=sdcard \
+    otaupdater.sdcard.recovery=sdcard-ext \
     otaupdater.noflash=1 \
     otaupdater.otaid=$(TYPE)-JB-$(TARGET_PRODUCT)
 ifeq ($(FLAVOR),cm)
