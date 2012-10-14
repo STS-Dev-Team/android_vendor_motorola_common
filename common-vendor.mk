@@ -47,7 +47,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     otaupdater.otatime=$(OTATIME) \
     otaupdater.sdcard.os=sdcard-ext \
     otaupdater.sdcard.recovery=sdcard-ext \
-    otaupdater.noflash=1 \
     otaupdater.otaid=$(TYPE)-JB-$(TARGET_PRODUCT)
 ifeq ($(FLAVOR),cm)
     PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(UTC)-UNOFFICIAL-$(DEVICE)
