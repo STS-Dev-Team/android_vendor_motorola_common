@@ -55,7 +55,7 @@ ifeq ($(FLAVOR),aokp)
     DATE = $(shell vendor/aokp/tools/getdate)
     PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(DATE)
 endif
-ifeq (#(FLAVOR),cna)
+ifeq ($(FLAVOR),cna)
     PRODUCT_PROPERTY_OVERRIDES += otaupdater.otaver=$(UTC)
 endif
 ifeq ($(FLAVOR),full)
