@@ -68,9 +68,6 @@ rm -rf $REPACK/parallel
 )
 
 # Remove unwanted Apps
-rm $REPACK/ota/system/app/FmRxApp.apk
-rm $REPACK/ota/system/app/FmService.apk
-rm $REPACK/ota/system/app/FmTxApp.apk
 rm $REPACK/ota/system/app/RomManager.apk 2> /dev/null
 
 # Fix build.prop
@@ -95,6 +92,9 @@ if [ -f $OUT/system/etc/kexec/kexec ]; then
 cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
 fi
+
+mv -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so.bak
+
 
 # Determine what to name the new signed package
 REALDATE=`date -u +%Y%m%d`
