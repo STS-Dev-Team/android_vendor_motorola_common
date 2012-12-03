@@ -93,7 +93,7 @@ cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/ve
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
 fi
 
-mv -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so.bak
+mv -f $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so.bak
 
 
 # Determine what to name the new signed package
@@ -147,21 +147,6 @@ echo
 img=`basename $OUTFILE`
 cd `dirname $OUTFILE`
 $MD5 $img >$img.md5sum
-
-# Create otaupdater details file
-OTAVER=`sed -n -e'/otaupdater\.otaver/s/^.*=//p' $OUT/system/build.prop`
-TIME=`sed -n -e'/otaupdater\.otatime/s/^.*=//p' $OUT/system/build.prop`
-echo "ROM NAME = $OTANAME" >$img.ota
-echo "ROM OTA ID = $PREFIX-JB-$TARGET_PRODUCT" >>$img.ota
-echo "ROM version = $OTAVER" >>$img.ota
-echo "OTA date/time = $TIME" >>$img.ota
-$MD5 $img >>$img.ota
-echo
-echo "Package complete: $OUTFILE"
-cat $img.md5sum
-echo
-cat $img.ota
-echo
 )
 
 exit 0
