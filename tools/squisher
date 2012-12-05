@@ -147,6 +147,10 @@ echo
 img=`basename $OUTFILE`
 cd `dirname $OUTFILE`
 $MD5 $img >$img.md5sum
+echo
+echo $CL_GRN"Package complete: $OUTFILE"$CL_RST
+cat $img.md5sum
+echo
 )
 
 exit 0
