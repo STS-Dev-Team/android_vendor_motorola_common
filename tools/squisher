@@ -98,33 +98,28 @@ mv -f $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so $REPACK/ota/system/ve
 
 # Determine what to name the new signed package
 REALDATE=`date -u +%Y%m%d`
-if [ -f $OUT/system/etc/kexec/kexec ]; then
-PREFIX=KEXEC
-else
-PREFIX=STOCK
-fi
 
 if [ -f $ANDROID_BUILD_TOP/vendor/cm/LICENSE ];
 then
 MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $REPACK/ota/system/build.prop`
-OUTFILE=$OUT/$PREFIX-cm-$MODVERSION.zip
-OTANAME=$PREFIX-cm-10
+OUTFILE=$OUT/cm-$MODVERSION.zip
+OTANAME=cm-10
 echo MODVERSION: $MODVERSION
 elif [ -f $ANDROID_BUILD_TOP/vendor/aokp/vendorsetup.sh ];
 then
 VERSION=`sed -n -e'/ro.aokp.version/s/^.*=//p' $REPACK/ota/system/build.prop`
 MODVERSION="$VERSION"
-OUTFILE=$OUT/$PREFIX-JB-$MODVERSION.zip
-OTANAME=$PREFIX-JB-$TARGET_PRODUCT\_unofficial
+OUTFILE=$OUT/JB-$MODVERSION.zip
+OTANAME=JB-$TARGET_PRODUCT\_unofficial
 elif [ -f $ANDROID_BUILD_TOP/vendor/cna/vendorsetup.sh ];
 then
 MODVERSION=`sed -n -e'/ro\.modversion/s/^.*Codename-Android-//p' $REPACK/ota/system/build.prop`
-OUTFILE=$OUT/$PREFIX-JB-$TARGET_PRODUCT-$REALDATE.zip
-OTANAME=$PREFIX-JB-$TARGET_PRODUCT
+OUTFILE=$OUT/JB-$TARGET_PRODUCT-$REALDATE.zip
+OTANAME=JB-$TARGET_PRODUCT
 echo MODVERSION: $MODVERSION
 else
-OUTFILE=$OUT/$PREFIX-JB-$TARGET_PRODUCT-$REALDATE.zip
-OTANAME=$PREFIX-JB-$TARGET_PRODUCT
+OUTFILE=$OUT/JB-$TARGET_PRODUCT-$REALDATE.zip
+OTANAME=JB-$TARGET_PRODUCT
 fi
 
 # Pack it up and sign
