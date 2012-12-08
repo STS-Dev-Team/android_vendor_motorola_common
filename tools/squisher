@@ -88,7 +88,7 @@ rm -rf $REPACK/ota/recovery
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # move gralloc to where it will be recognized and camera out of the way for now in kexec builds
-if [ -f $OUT/system/etc/kexec/kexec ]; then
+if [ "$TARGET_PRODUCT" = "solana" ]; then
 cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
 fi
