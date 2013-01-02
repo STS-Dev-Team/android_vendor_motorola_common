@@ -18,4 +18,5 @@ VENDOR_FOLDER := vendor/motorola/common
 PRODUCT_COPY_FILES += \
     $(VENDOR_FOLDER)/prebuilt/bin/backuptool.sh:system/bin/backuptool.sh \
     $(VENDOR_FOLDER)/prebuilt/bin/backuptool.functions:system/bin/backuptool.functions \
-    $(VENDOR_FOLDER)/prebuilt/bin/50-backup.sh:system/addon.d/50-backup.sh
+    $(VENDOR_FOLDER)/prebuilt/bin/50-backup.sh:system/addon.d/50-backup.sh \
+    $(VENDOR_FOLDER)/prebuilt/lib/libjni_mosaic.so:system/lib/libjni_mosaic.so
