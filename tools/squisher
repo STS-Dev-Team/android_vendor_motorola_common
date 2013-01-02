@@ -95,6 +95,14 @@ fi
 
 mv -f $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so.bak
 
+if [ -f $ANDROID_BUILD_TOP/vendor/nos/killrom/README.md ];
+then
+rm $REPACK/ota/system/app/Gallery.apk
+rm $REPACK/ota/system/addon.d/50-backup.sh
+rm $REPACK/ota/system/bin/backuptool.sh
+rm $REPACK/ota/system/bin/backuptool.functions
+rm $REPACK/ota/system/bin/blacklist
+fi
 
 # Determine what to name the new signed package
 REALDATE=`date -u +%Y%m%d`

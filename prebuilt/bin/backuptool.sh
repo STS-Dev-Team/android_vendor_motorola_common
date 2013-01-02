@@ -5,8 +5,8 @@
 
 export C=/tmp/backupdir
 export S=/system
-export V=4.1.2
-export A=4.1.2.3.4.5.6.7.8.9
+export V=4.2.1
+export A=4.2.1.2.4.8.16.32.64
 
 # Preserve /system/addon.d in /tmp/addon.d
 preserve_addon_d() {
@@ -21,12 +21,23 @@ restore_addon_d() {
   rm -rf /tmp/addon.d/
 }
 
-# Proceed only if /system is JB
+# Proceed only if /system is JB 4.2.1
 check_prereq() {
 if [ ! grep -q "^ro.build.version.release=$V" /system/build.prop ] || [ ! grep -q "^ro.build.version.release=$A" /system/build.prop ]; then
   echo "Not backing up files from incompatible version."
   exit 127
 fi
+}
+
+check_blacklist() {
+  if [ -f /system/addon.d/blacklist ];then
+      ## Discard any known bad backup scripts
+      cd /$1/addon.d/
+      for f in *sh; do
+          s=$(md5sum $f | awk {'print $1'})
+          grep -q $s /system/addon.d/blacklist && rm -f $f
+      done
+  fi
 }
 
 # Execute /system/addon.d/*.sh scripts with $1 parameter
@@ -40,6 +51,7 @@ case "$1" in
   backup)
     mkdir -p $C
     check_prereq
+    check_blacklist system
     preserve_addon_d
     run_stage pre-backup
     run_stage backup
@@ -47,6 +59,7 @@ case "$1" in
   ;;
   restore)
     check_prereq
+    check_blacklist tmp
     run_stage pre-restore
     run_stage restore
     run_stage post-restore
