@@ -93,8 +93,6 @@ cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/ve
 mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
 fi
 
-mv -f $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so $REPACK/ota/system/vendor/lib/hw/hwcomposer.omap4.so.bak
-
 if [ -f $ANDROID_BUILD_TOP/vendor/nos/killrom/README.md ];
 then
 rm $REPACK/ota/system/app/Gallery.apk
