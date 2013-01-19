@@ -26,7 +26,7 @@ LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 include $(BUILD_PREBUILT)
 
-
+ifeq ($(filter aokp_maserati aokp_targa aokp_spyder,$(TARGET_PRODUCT)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := VerizonSSO
 LOCAL_MODULE_OWNER := vzw
@@ -36,6 +36,7 @@ LOCAL_MODULE_SUFFIX := .apk
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := PRESIGNED
 include $(BUILD_PREBUILT)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := VZWAPNLib
