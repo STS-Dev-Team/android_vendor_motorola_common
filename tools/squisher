@@ -30,49 +30,114 @@ if [ ! -f "$OTAPACKAGE" ]; then
 	exit 1
 fi
 
+OPTICHARGER=$ANDROID_BUILD_TOP/vendor/motorola/common/tools/opticharger
+QUIET=-q
+DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
+
+REPACK=$OUT/repack.d
+echo -e $CL_CYN"Sanitizing environment..."$CL_RST
+rm -rf $REPACK
+mkdir -p $REPACK
+echo -e
+
+
+# Unpack the otapackage and opticharge all apks
+mkdir $REPACK/ota
+(
+cd $REPACK/ota
+echo -e $CL_CYN"Unpacking $OTAPACKAGE..."$CL_RST
+unzip $QUIET $OTAPACKAGE
+echo -e
+
+# Move all apks to the same directory so xargs can
+# use also with framework-res.apk. This allow process
+# framework-res.apk in parallel with other apks
+mkdir -p $REPACK/parallel
+cd $REPACK/parallel
+cp $REPACK/ota/system/framework/framework-res.apk .
+cp $REPACK/ota/system/app/*.apk .
+
+# Do optimization in parallel
+find ./ -name \*.apk | $XARGS $OPTICHARGER
+
+# Move optimized apks to repack directory
+mv -f $REPACK/parallel/framework-res.apk $REPACK/ota/system/framework/framework-res.apk
+mv -f $REPACK/parallel/*.apk $REPACK/ota/system/app/
+
+# Return to directory
+cd $REPACK/ota
+rm -rf $REPACK/parallel
+)
+
+# Fix build.prop
+$SED -i \
+	-e '/ro\.kernel\.android\.checkjni/d' \
+	-e '/ro\.build\.type/s/eng/user/' \
+	$REPACK/ota/system/build.prop
+
+
+# Delete unnecessary binaries
+( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
+
+# No need for recovery
+rm -rf $REPACK/ota/recovery
+
 # Strip modules
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # move gralloc to where it will be recognized and camera out of the way for now in kexec builds
 if [ "$TARGET_PRODUCT" = "solana" ]; then
-cp -f $OUTsystem/vendor/lib/hw/gralloc.omap4430.so $OUT/system/vendor/lib/hw/gralloc.omap4.so
-mv $OUT/system/lib/hw/camera.omap4.so $OUT/system/lib/hw/camera.omap4.so.bak
+cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
+mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
 fi
 
 if [ -f $ANDROID_BUILD_TOP/vendor/nos/killrom/README.md ];
 then
-rm $OUT/system/app/Gallery.apk
-rm $OUT/system/addon.d/50-backup.sh
-rm $OUT/system/bin/backuptool.sh
-rm $OUT/system/bin/backuptool.functions
-rm $OUT/system/bin/blacklist
+rm $REPACK/ota/system/app/Gallery.apk
+rm $REPACK/ota/system/addon.d/50-backup.sh
+rm $REPACK/ota/system/bin/backuptool.sh
+rm $REPACK/ota/system/bin/backuptool.functions
+rm $REPACK/ota/system/bin/blacklist
 fi
 
-# Determine what to name the new package
+# Determine what to name the new signed package
 REALDATE=`date -u +%Y%m%d`
 
 if [ -f $ANDROID_BUILD_TOP/vendor/cm/LICENSE ];
 then
-MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $OUT/system/build.prop`
+MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $REPACK/ota/system/build.prop`
 echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
 OUTFILE=$OUT/cm-$MODVERSION.zip
 elif [ -f $ANDROID_BUILD_TOP/vendor/aokp/vendorsetup.sh ];
 then
-VERSION=`sed -n -e'/ro.aokp.version/s/^.*=//p' $OUT/system/build.prop`
+VERSION=`sed -n -e'/ro.aokp.version/s/^.*=//p' $REPACK/ota/system/build.prop`
 MODVERSION="$VERSION"
 echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
 OUTFILE=$OUT/JB-$MODVERSION.zip
 elif [ -f $ANDROID_BUILD_TOP/vendor/cna/vendorsetup.sh ];
 then
-MODVERSION=`sed -n -e'/ro\.modversion/s/^.*Codename-Android-//p' $OUT/system/build.prop`
+MODVERSION=`sed -n -e'/ro\.modversion/s/^.*Codename-Android-//p' $REPACK/ota/system/build.prop`
 OUTFILE=$OUT/JB-$TARGET_PRODUCT-$REALDATE.zip
 echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
 else
 OUTFILE=$OUT/JB-$TARGET_PRODUCT-$REALDATE.zip
 fi
 
-ln -f $OTAPACKAGE $OUTFILE
+# Pack it up and sign
+echo -e $CL_CYN"Zipping package..."$CL_RST
+( cd $REPACK/ota; zip $QUIET -r $REPACK/update.zip . )
+echo -e
+echo -e $CL_CYN"Signing package..."$CL_RST
+SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
+java -Xmx1536m \
+	-jar $OUT/../../../host/$OUT_TARGET_HOST/framework/signapk.jar \
+	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
+	$REPACK/update.zip $OUTFILE
+echo -e
+echo -e $CL_CYN"Cleaning up..."$CL_RST
+rm -rf $REPACK
+echo -e
 
 # Create a md5 checksum image of the repacked package
 (
