@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Pick up overlay for features that depend on non-open-source files
-#DEVICE_PACKAGE_OVERLAYS := vendor/motorola/common/overlay
+#DEVICE_PACKAGE_OVERLAYS := vendor/motorola/omap4-common/overlay
 
 PRODUCT_PACKAGES := \
     librs_jni \
@@ -29,5 +29,5 @@ PRODUCT_PACKAGES := \
     VisualizationWallpapers \
     PhaseBeam
 
-$(call inherit-product, vendor/motorola/common/common-vendor-blobs.mk)
-$(call inherit-product, vendor/motorola/common/common_drm_phone.mk)
+$(call inherit-product, vendor/motorola/omap4-common/common-vendor-blobs.mk)
+$(call inherit-product, vendor/motorola/omap4-common/common_drm_phone.mk)

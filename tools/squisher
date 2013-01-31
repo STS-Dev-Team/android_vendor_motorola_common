@@ -4,7 +4,7 @@
 # thanks to cyanogen
 #
 
-. $ANDROID_BUILD_TOP/vendor/motorola/common/tools/functions
+. $ANDROID_BUILD_TOP/vendor/motorola/omap4-common/tools/functions
 
 OUT_TARGET_HOST=`uname -a | grep Darwin`
 if [ -z "$OUT_TARGET_HOST" ]
@@ -30,7 +30,7 @@ if [ ! -f "$OTAPACKAGE" ]; then
 	exit 1
 fi
 
-OPTICHARGER=$ANDROID_BUILD_TOP/vendor/motorola/common/tools/opticharger
+OPTICHARGER=$ANDROID_BUILD_TOP/vendor/motorola/omap4-common/tools/opticharger
 QUIET=-q
 DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 

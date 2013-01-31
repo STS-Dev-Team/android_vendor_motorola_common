@@ -1,4 +1,4 @@
-VENDOR_FOLDER := vendor/motorola/common
+VENDOR_FOLDER := vendor/motorola/omap4-common
 
 # Blobs necessary for drm
 PRODUCT_COPY_FILES +=  \

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-VENDOR_FOLDER := vendor/motorola/common
+VENDOR_FOLDER := vendor/motorola/omap4-common
 
 # Backup Tool and audio
 PRODUCT_COPY_FILES += \
