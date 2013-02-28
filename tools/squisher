@@ -30,6 +30,9 @@ if [ ! -f "$OTAPACKAGE" ]; then
 	exit 1
 fi
 
+# Determine what to name the new signed package
+REALDATE=`date -u +%Y%m%d`
+
 # Determine what to name the new package
 MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $OUT/system/build.prop`
 echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
