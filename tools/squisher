@@ -30,98 +30,12 @@ if [ ! -f "$OTAPACKAGE" ]; then
 	exit 1
 fi
 
-OPTICHARGER=$ANDROID_BUILD_TOP/vendor/motorola/omap4-common/tools/opticharger
-QUIET=-q
-DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
-
-REPACK=$OUT/repack.d
-echo -e $CL_CYN"Sanitizing environment..."$CL_RST
-rm -rf $REPACK
-mkdir -p $REPACK
-echo -e
-
-
-# Unpack the otapackage and opticharge all apks
-mkdir $REPACK/ota
-(
-cd $REPACK/ota
-echo -e $CL_CYN"Unpacking $OTAPACKAGE..."$CL_RST
-unzip $QUIET $OTAPACKAGE
-echo -e
-
-# Move all apks to the same directory so xargs can
-# use also with framework-res.apk. This allow process
-# framework-res.apk in parallel with other apks
-mkdir -p $REPACK/parallel
-cd $REPACK/parallel
-cp $REPACK/ota/system/framework/framework-res.apk .
-cp $REPACK/ota/system/app/*.apk .
-
-# Do optimization in parallel
-find ./ -name \*.apk | $XARGS $OPTICHARGER
-
-# Move optimized apks to repack directory
-mv -f $REPACK/parallel/framework-res.apk $REPACK/ota/system/framework/framework-res.apk
-mv -f $REPACK/parallel/*.apk $REPACK/ota/system/app/
-
-# Return to directory
-cd $REPACK/ota
-rm -rf $REPACK/parallel
-)
-
-# Fix build.prop
-$SED -i \
-	-e '/ro\.kernel\.android\.checkjni/d' \
-	-e '/ro\.build\.type/s/eng/user/' \
-	$REPACK/ota/system/build.prop
-
-
-# Delete unnecessary binaries
-( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
-
-# No need for recovery
-rm -rf $REPACK/ota/recovery
-
-# Strip modules
-[ -d $REPACK/ota/system/lib/modules ] && \
-	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
-
-# move gralloc to where it will be recognized and camera out of the way for now in kexec builds
-if [ "$TARGET_PRODUCT" = "solana" ]; then
-cp -f $REPACK/ota/system/vendor/lib/hw/gralloc.omap4430.so $REPACK/ota/system/vendor/lib/hw/gralloc.omap4.so
-mv $REPACK/ota/system/lib/hw/camera.omap4.so $REPACK/ota/system/lib/hw/camera.omap4.so.bak
-fi
-
-if [ -f $ANDROID_BUILD_TOP/vendor/nos/killrom/README.md ];
-then
-rm $REPACK/ota/system/app/Gallery.apk
-rm $REPACK/ota/system/addon.d/50-backup.sh
-rm $REPACK/ota/system/bin/backuptool.sh
-rm $REPACK/ota/system/bin/backuptool.functions
-rm $REPACK/ota/system/bin/blacklist
-fi
-
-# Determine what to name the new signed package
-REALDATE=`date -u +%Y%m%d`
-
-MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $REPACK/ota/system/build.prop`
+# Determine what to name the new package
+MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*=//p' $OUT/system/build.prop`
 echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
 OUTFILE=$OUT/phablet-$REALDATE-$TARGET_PRODUCT.zip
 
-# Pack it up and sign
-echo -e $CL_CYN"Zipping package..."$CL_RST
-( cd $REPACK/ota; zip $QUIET -r $REPACK/update.zip . )
-echo -e
-echo -e $CL_CYN"Signing package..."$CL_RST
-SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
-java -Xmx1536m \
-	-jar $OUT/../../../host/$OUT_TARGET_HOST/framework/signapk.jar \
-	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
-	$REPACK/update.zip $OUTFILE
-echo -e
-echo -e $CL_CYN"Cleaning up..."$CL_RST
-rm -rf $REPACK
-echo -e
+ln -f $OTAPACKAGE $OUTFILE
 
 # Create a md5 checksum image of the repacked package
 (
