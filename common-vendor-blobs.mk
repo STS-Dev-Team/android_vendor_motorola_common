@@ -17,6 +17,5 @@ VENDOR_FOLDER := vendor/motorola/omap4-common
 # Backup Tool and audio
 PRODUCT_COPY_FILES += \
     $(VENDOR_FOLDER)/proprietary/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
-    $(VENDOR_FOLDER)/proprietary/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so
-
-#    $(VENDOR_FOLDER)/proprietary/audio/audio.primary.omap4.so:/system/lib/hw/audio.primary.omap4.so
+    $(VENDOR_FOLDER)/proprietary/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+    $(VENDOR_FOLDER)/proprietary/audio/audio.primary.omap4.so:/system/lib/hw/audio.primary.omap4.so
