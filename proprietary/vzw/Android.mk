@@ -28,7 +28,7 @@ include $(BUILD_PREBUILT)
 
 ifeq ($(filter aokp_maserati aokp_targa aokp_spyder,$(TARGET_PRODUCT)),)
 include $(CLEAR_VARS)
-LOCAL_MODULE := VerizonSSO
+LOCAL_MODULE := VerizonSSOEngine
 LOCAL_MODULE_OWNER := vzw
 LOCAL_SRC_FILES := $(LOCAL_MODULE).apk
 LOCAL_MODULE_TAGS := optional
